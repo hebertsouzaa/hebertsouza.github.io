@@ -1,10 +1,486 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
-    <meta charset="UTF-8">
-    <title>O Meu Site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebert Souza | Portefólio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* VARIÁVEIS DE COR E TEMA ESCURO */
+    :root {
+      --bg-main: #050505;
+      --bg-card: #121212;
+      --bg-pill: #1a1a1a;
+      --text-main: #ffffff;
+      --text-muted: #999999;
+      --border-color: #2a2a2a;
+      --hover-color: #333333;
+      --font-main: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    /* NAVEGAÇÃO */
+    header {
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+      background: var(--bg-pill);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      background: var(--bg-card);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-main);
+    }
+
+    .btn-talk {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .btn-talk:hover {
+      background: var(--hover-color);
+    }
+
+    /* SECÇÃO HERO */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 5%;
+      gap: 3rem;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .greeting {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .description {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-download {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .btn-download:hover {
+      background: var(--hover-color);
+    }
+
+    .social-icon {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .social-icon:hover {
+      color: var(--text-main);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 20px;
+      filter: grayscale(100%);
+      transition: filter 0.5s ease;
+    }
+
+    .hero-image img:hover {
+      filter: grayscale(0%);
+    }
+
+    /* SECÇÕES COMUNS */
+    section {
+      max-width: 1200px;
+      margin: 8rem auto;
+      padding: 0 5%;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+
+    /* GRELHA DE CARTÕES (SERVIÇOS E COMPETÊNCIAS) */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      text-align: left;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #444;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      flex-grow: 1;
+      margin-bottom: 2rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* SOBRE MIM */
+    .about-text {
+      color: var(--text-main);
+      max-width: 800px;
+      margin: 0 auto 3rem auto;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .approach {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .approach-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .approach-step span {
+      background: var(--text-main);
+      color: var(--bg-main);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat h4 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* RODAPÉ */
+    footer {
+      text-align: center;
+      padding: 3rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 5rem;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .nav-links {
+        display: none; /* Em projetos reais pode ser substituído por um menu hambúrguer */
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        margin: 2rem auto;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .description {
+        margin: 0 auto 2rem auto;
+      }
+      .stats {
+        gap: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Olá, Mundo! O meu GitHub Pages está a funcionar.</h1>
+
+  <header>
+    <div class="logo">HS</div>
+    <ul class="nav-links">
+      <li><a href="#home">Início</a></li>
+      <li><a href="#services">Serviços</a></li>
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#skills">Competências</a></li>
+    </ul>
+    <a href="mailto:seu-email@exemplo.com" class="btn-talk">Vamos Falar</a>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="greeting">Olá, eu sou o Hebert Souza</p>
+      <h1>Desenvolvedor Front-End & Designer</h1>
+      <p class="description">A aliar a conceção pensada de interfaces (UI) a um desenvolvimento limpo e responsivo para criar experiências digitais fluidas, de aspeto incrível e desempenho impecável.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-download">Descarregar CV</a>
+        
+        <a href="https://www.linkedin.com/in/hebert-souza/?locale=en" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/SeuUsuario" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://via.placeholder.com/400x500/121212/ffffff?text=A+Sua+Foto+Aqui" alt="Fotografia de Hebert Souza">
+    </div>
+  </section>
+
+  <section id="services">
+    <h2 class="section-title">Serviços</h2>
+    <p class="section-subtitle">A conceber websites responsivos, limpos e escaláveis</p>
+    
+    <div class="grid-4">
+      <div class="card">
+        <h3>Design de UI/UX</h3>
+        <p>Layouts limpos, focados no utilizador com estrutura clara, navegação fluida e forte hierarquia visual.</p>
+        <div class="tags">
+          <span class="tag">Layouts modernos</span>
+          <span class="tag">Design responsivo</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Desenvolvimento Front-end</h3>
+        <p>Interfaces responsivas usando HTML, CSS e JavaScript para um desempenho fiável e consistente.</p>
+        <div class="tags">
+          <span class="tag">HTML/CSS limpo</span>
+          <span class="tag">Interações fluidas</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Desempenho & Responsividade</h3>
+        <p>Websites rápidos e mobile-first otimizados para velocidade, acessibilidade e eficiência.</p>
+        <div class="tags">
+          <span class="tag">Otimização</span>
+          <span class="tag">Acessibilidade</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Integração de Sistemas</h3>
+        <p>Configuração de soluções web leves com atualizações fáceis, carregamento rápido e layouts escaláveis.</p>
+        <div class="tags">
+          <span class="tag">Configuração</span>
+          <span class="tag">Fácil gestão</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">Sobre Mim</h2>
+    <p class="about-text">Sou um desenvolvedor apaixonado por criar experiências digitais limpas, intuitivas e responsivas. Foco-me em transformar ideias em interfaces fluidas através da compreensão das necessidades dos utilizadores, estruturação de layouts detalhados e garantia de que tudo funciona na perfeição em qualquer ecrã.</p>
+    
+    <p class="section-subtitle">A Minha Abordagem</p>
+    <div class="approach">
+      <div class="approach-step"><span>01</span> Compreender o utilizador e objetivos</div>
+      <div class="approach-step"><span>02</span> Criar layouts de UI limpos</div>
+      <div class="approach-step"><span>03</span> Experiências responsivas</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <h4>03+</h4>
+        <p>Anos de Experiência</p>
+      </div>
+      <div class="stat">
+        <h4>20+</h4>
+        <p>Projetos Concluídos</p>
+      </div>
+      <div class="stat">
+        <h4>10+</h4>
+        <p>Clientes Satisfeitos</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Competências</h2>
+    <p class="section-subtitle">A criar UI/UX de excelência e código irrepreensível</p>
+    
+    <div class="grid-4">
+      <div class="card">
+        <h3>Essenciais</h3>
+        <div class="tags">
+          <span class="tag">Layout UI/UX</span>
+          <span class="tag">Dev Frontend</span>
+          <span class="tag">Web Design Responsivo</span>
+          <span class="tag">Componentes</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Tecnologias</h3>
+        <div class="tags">
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">React / Vue</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Design</h3>
+        <div class="tags">
+          <span class="tag">Figma</span>
+          <span class="tag">Photoshop</span>
+          <span class="tag">Illustrator</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Ferramentas</h3>
+        <div class="tags">
+          <span class="tag">GitHub</span>
+          <span class="tag">Git</span>
+          <span class="tag">Netlify</span>
+          <span class="tag">Interações UI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Hebert Souza. Todos os direitos reservados.</p>
+  </footer>
+
 </body>
 </html>
